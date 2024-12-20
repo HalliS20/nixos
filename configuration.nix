@@ -46,10 +46,20 @@
     variant = "";
  };
 
+services.xserver.deviceSection = ''
+  Option "TearFree" "true"
+'';
+
+boot.kernel.sysctl = {
+  "vm.swappiness" = 10; # Lower value means less aggressive swapping
+};
+
+powerManagement.cpuFreqGovernor = "performance";
+
   swapDevices=[ {
   	device = "/swapfile";
-	size = 8192;
-}];
+    size = 16384;	
+	}];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -124,6 +134,9 @@ services.zshrcManager = {
 	nerdfonts
 	github-cli
 	glab
+	htop
+	gparted
+	flatpak
 # dev apps
 	docker
 	docker-compose
@@ -160,6 +173,7 @@ services.zshrcManager = {
   programs.firefox.enable = true;
   programs.zsh.enable=true;
 fonts.fontconfig.enable = true;
+services.flatpak.enable = true;
 
 programs.steam = {
   enable = true;
@@ -197,3 +211,4 @@ users.users.root = {
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
+
